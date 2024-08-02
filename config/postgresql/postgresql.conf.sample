@@ -1,0 +1,28 @@
+listen_addresses = '*'
+max_connections = 100
+
+log_statement = 'none'
+log_duration = off
+
+shared_buffers = 1024MB
+work_mem = 32MB
+maintenance_work_mem = 512MB
+dynamic_shared_memory_type = posix
+effective_io_concurrency = 200
+
+wal_compression = 'lz4'
+max_wal_size = 1GB
+min_wal_size = 80MB
+
+random_page_cost = 1.1
+
+log_timezone = 'Etc/UTC'
+
+default_toast_compression = 'lz4'
+# datestyle = 'iso, dmy'
+timezone = 'Etc/UTC'
+# lc_messages = 'pt_BR.utf8'
+# lc_monetary = 'pt_BR.utf8'
+# lc_numeric = 'pt_BR.utf8'
+# lc_time = 'pt_BR.utf8'
+default_text_search_config = 'pg_catalog.portuguese'

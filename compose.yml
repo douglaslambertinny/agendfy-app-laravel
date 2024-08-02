@@ -1,0 +1,61 @@
+services:
+  # Application Service
+  app:
+    container_name: agendfy-app
+    build:
+      context: ./docker-images
+      dockerfile: DockerFile
+    restart: always
+    volumes:
+      - ./web:/var/www/html
+    working_dir: /var/www/html/agendfy
+    depends_on:
+      - db
+    expose:
+      - "9000"
+
+  caddy:
+    image: caddy:alpine
+    container_name: agendfy-caddy
+    restart: unless-stopped
+    ports:
+        - "80:80"
+        - "443:443"
+        - "443:443/udp"
+    volumes:
+        - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile
+        - ./web:/srv
+        - ./config/caddy/data:/data
+        - ./config/caddy/config:/config
+            
+  # Database Service
+  db:
+    image: postgres:15.0
+    container_name: postgres
+    shm_size: 1gb
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./config/postgresql/postgresql.conf:/etc/postgresql.conf
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: agendfy
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1213Dofufglas
+    command: |
+      -c config_file=/etc/postgresql.conf
+
+  # pgAdmin Service
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgAdmin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: doug.barbosa.ti@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+
+volumes:
+  db: null

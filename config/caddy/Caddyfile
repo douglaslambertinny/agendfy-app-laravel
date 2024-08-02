@@ -1,0 +1,14 @@
+agendfy.localhost {
+	root * /srv/agendfy/public
+  	tls internal
+	php_fastcgi app:9000 {
+        	root /var/www/html/agendfy/public
+	}
+	file_server
+	encode gzip
+}
+
+pgadmin.localhost {
+  	tls internal
+	reverse_proxy pgadmin:80
+}
