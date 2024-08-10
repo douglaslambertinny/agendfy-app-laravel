@@ -8,6 +8,8 @@ services:
     restart: always
     volumes:
       - ./web:/var/www/html
+      # - ./config/php:/usr/local/etc/php:ro
+      - ./config/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     working_dir: /var/www/html/agendfy
     depends_on:
       - db

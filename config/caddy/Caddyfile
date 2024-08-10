@@ -1,4 +1,4 @@
-agendfy.localhost {
+agendfy.localhost, *.agendfy.localhost, agendfy.local.barbosa.digital {
 	root * /srv/agendfy/public
   	tls internal
 	php_fastcgi app:9000 {
